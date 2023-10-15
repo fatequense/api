@@ -1,4 +1,8 @@
 {
+  "name": "@fatequense/api",
+  "version": "0.0.1-bocchi",
+  "description": "API da plataforma Fatequense, na qual é uma alternativa da plataforma para as Fatecs e Etecs chamada SIGA mas com foco apenas às Fatecs.",
+  "author": "Caio Vinícius <caiocamargo.ct@gmail.com>",
   "private": true,
   "scripts": {
     "prepare": "nitropack prepare",
