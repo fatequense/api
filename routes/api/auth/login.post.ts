@@ -23,7 +23,7 @@ export default defineEventHandler(async event => {
 
   const cookies = parseCookie(res.headers['set-cookie'] as string);
   const token = jwtSign({
-    session: cookies.get(COOKIES.AUTH) as string
+    session: encrypt(cookies.get(COOKIES.AUTH) as string).toString('base64')
   });
 
   return { token };
