@@ -8,7 +8,7 @@ async function get(route: ValueOf<typeof ROUTES>, token: string, options: Reques
     ...options,
     headers: {
       ...options?.headers,
-      cookie: `${COOKIES.AUTH}=${token}`
+      cookie: `${COOKIES.AUTH}=${decrypt(token)}`
     },
     maxRedirects: 0,
   });
