@@ -7,6 +7,8 @@
     "preview": "node .output/server/index.mjs"
   },
   "dependencies": {
+    "cheerio": "1.0.0-rc.12",
+    "dayjs": "^1.11.10",
     "jsonwebtoken": "^9.0.2",
     "nitropack": "latest",
     "urllib": "^3.19.3",
