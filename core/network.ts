@@ -2,7 +2,9 @@ import { request, type RequestOptions } from "urllib";
 import { ValueOf } from "../types";
 import { BASE_URL, COOKIES, ROUTES } from "./constants";
 
-async function get(route: ValueOf<typeof ROUTES>, token: string, options: RequestOptions = undefined) {
+type Route = ValueOf<typeof ROUTES>;
+
+async function get(route: Route, token: string, options: RequestOptions = undefined) {
   const url = new URL(route, BASE_URL);
   const response = await request(url, {
     ...options,
@@ -19,7 +21,7 @@ async function get(route: ValueOf<typeof ROUTES>, token: string, options: Reques
   }
 }
 
-async function post(route: ValueOf<typeof ROUTES>, options: RequestOptions = undefined) {
+async function post(route: Route, options: RequestOptions = undefined) {
   const url = new URL(route, BASE_URL);
 
   return await request(url, {
