@@ -1,7 +1,12 @@
-import { email, number, object, string, toTrimmed, url } from "valibot";
+import { email, number, object, string, toTrimmed, transform, url } from "valibot";
 
 export const profileSchema = object({
-  name: string([toTrimmed()]),
+  name: transform(
+    string([toTrimmed()]),
+    name => name
+      .toLowerCase()
+      .replace(/(^|\s)\S/g, (char) => char.toUpperCase())
+  ),
   ra: string(),
   personalEmail: string([email()]),
   institutionalEmail: string([email()]),
