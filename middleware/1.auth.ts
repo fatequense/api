@@ -1,9 +1,11 @@
+import { MissingTokenError, UnauthorizedError } from "~/errors/exceptions/siga.error";
+
 export default defineEventHandler((event) => {
   if (!event.path.startsWith('/api/student')) return;
 
   const authorizationHeader = event.headers.get("Authorization");
 
-  if (!authorizationHeader) throw new Error("Unauthorized. Missing authorization token.")
+  if (!authorizationHeader) throw new MissingTokenError();
 
   const token = authorizationHeader.split(" ")[1];
 
@@ -12,6 +14,6 @@ export default defineEventHandler((event) => {
 
     event.context.token = payload.session;
   } catch {
-    throw new Error("Unauthorized. Invalid authorization token.");
+    throw new UnauthorizedError();
   }
 });

@@ -1,10 +1,13 @@
-import { object, parse, string } from "valibot";
+import { length, object, parse, string } from "valibot";
 import { COOKIES, GX_STATE, INPUT_IDS, STATUS } from "~/core/constants";
 import { api } from "~/core/network";
+import { AuthError } from "~/errors/exceptions/siga.error";
 
 const loginSchema = object({
-  username: string(),
-  password: string()
+  username: string("Username must be a string", [
+    length(11, "Username must be 11 characters long")
+  ]),
+  password: string("Password must be a string"),
 });
 
 export default defineEventHandler(async event => {
@@ -19,7 +22,7 @@ export default defineEventHandler(async event => {
     }
   });
 
-  if (res.status !== STATUS.REDIRECT) throw new Error("Failed to login");
+  if (res.status !== STATUS.REDIRECT) throw new AuthError();
 
   const cookies = parseCookie(res.headers['set-cookie'] as string);
   const token = jwtSign({
