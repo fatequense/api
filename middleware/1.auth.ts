@@ -1,7 +1,9 @@
 import { MissingTokenError, UnauthorizedError } from "~/errors/exceptions/siga.error";
 
+const excludeRoutes = ['/api/auth/login'];
+
 export default defineEventHandler((event) => {
-  if (!event.path.startsWith('/api/student')) return;
+  if (excludeRoutes.some(event.path.startsWith)) return;
 
   const authorizationHeader = event.headers.get("Authorization");
 
