@@ -10,7 +10,6 @@ export default defineEventHandler(async (event) => {
   if (res.status === STATUS.REDIRECT) throw new AccessDeniedError();
 
   const html = await parseHtml(res.data);
-  const partialAbsences = scrapPartialAbsences(html);
 
-  return { partialAbsences };
+  return scrapPartialAbsences(html);
 });

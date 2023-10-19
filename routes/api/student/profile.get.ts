@@ -10,7 +10,6 @@ export default defineEventHandler(async (event) => {
   if (res.status === STATUS.REDIRECT) throw new AccessDeniedError();
 
   const html = await parseHtml(res.data);
-  const profile = scrapProfile(html);
 
-  return { profile };
+  return scrapProfile(html);
 });
