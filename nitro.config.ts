@@ -9,5 +9,10 @@ export default defineNitroConfig({
       driver: "redis",
       url: process.env.UPSTASH_REDIS_URL
     }
+  },
+  routeRules: {
+    "/**": {
+      cors: true
+    }
   }
 });
