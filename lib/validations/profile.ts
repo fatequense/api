@@ -1,4 +1,4 @@
-import { email, number, object, string, toTrimmed, transform, url } from "valibot";
+import { email, number, object, optional, string, toTrimmed, transform, url } from "valibot";
 
 export const profileSchema = object({
   name: transform(
@@ -16,6 +16,7 @@ export const profileSchema = object({
   semestersAttended: number(),
   currentSemester: number(),
   photoUrl: string([url()]),
+  avatarUrl: optional(string([url()])),
   college: object({
     name: string(),
     courseName: string(),
