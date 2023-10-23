@@ -2,7 +2,7 @@ import { request, type RequestOptions } from "urllib";
 import { ValueOf } from "../types";
 import { BASE_URL, COOKIES, ROUTES } from "./constants";
 
-type Route = ValueOf<typeof ROUTES>;
+export type Route = ValueOf<typeof ROUTES>;
 
 async function get(route: Route, token: string, options: RequestOptions = undefined) {
   const url = new URL(route, BASE_URL);
