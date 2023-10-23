@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1698016967893,
+      "tag": "0000_slim_monster_badoon",
+      "breakpoints": true
+    }
+  ]
+}
