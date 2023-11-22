@@ -17,16 +17,16 @@
     "cheerio": "1.0.0-rc.12",
     "dayjs": "^1.11.10",
     "dotenv": "^16.3.1",
-    "drizzle-orm": "^0.28.6",
+    "drizzle-orm": "^0.29.0",
     "jsonwebtoken": "^9.0.2",
-    "nitropack": "latest",
+    "nitropack": "^2.8.0",
     "urllib": "^3.19.3",
-    "valibot": "^0.19.0"
+    "valibot": "^0.21.0"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.3",
-    "drizzle-kit": "^0.19.13",
-    "postgres": "^3.4.0",
-    "tsx": "^3.14.0"
+    "@types/jsonwebtoken": "^9.0.5",
+    "drizzle-kit": "^0.20.4",
+    "postgres": "^3.4.3",
+    "tsx": "^4.2.0"
   }
 }
