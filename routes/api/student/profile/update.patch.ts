@@ -9,22 +9,16 @@ import { updateStudentSchema } from "~/lib/validations/update-student";
 export default defineEventHandler(async (event) => {
 	const { avatarUrl } = parse(updateStudentSchema, await readBody(event));
 
-	const profile = await scrap({
-    route: "/aluno/home.aspx",
-    scrapFn: scrapProfile,
-    token: event.context.token
-  })
-
 	const student = await db
 		.select()
 		.from(students)
-		.where(eq(students.id, profile.ra))
+		.where(eq(students.id, event.context.user.ra))
 	
 	if (student.length === 0) {
 		await db
 			.insert(students)
 			.values({
-				id: profile.ra,
+				id: event.context.user.ra,
 				avatarUrl
 			})
 	} else {
@@ -33,7 +27,7 @@ export default defineEventHandler(async (event) => {
 			.set({
 				avatarUrl
 			})
-			.where(eq(students.id, profile.ra))
+			.where(eq(students.id, event.context.user.ra))
 	}
 
 	return { ok: true }

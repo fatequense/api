@@ -2,25 +2,23 @@ import { eq } from "drizzle-orm";
 
 import { db } from "~/db";
 import { students } from "~/db/schema";
-import { scrapProfile } from "~/core/scrapers/profile.scraper";
+import { AccessDeniedError } from "~/errors/exceptions/siga.error";
 
 export default defineEventHandler(async (event) => {
-  const scrapedProfile = await scrap({
-    route: "/aluno/home.aspx",
-    scrapFn: scrapProfile,
-    token: event.context.token
-  })
+  const scrapedProfile = await sigaProfile(event.context.user)
+
+  if (!scrapedProfile.success) throw new AccessDeniedError()
 
   const student = await db
     .select()
     .from(students)
-    .where(eq(students.id, scrapedProfile.ra))
+    .where(eq(students.id, scrapedProfile.data.ra))
   
   if (student.length === 1) {
-    Object.assign(scrapedProfile, {
+    Object.assign(scrapedProfile.data, {
       avatarUrl: student[0].avatarUrl,
     })
   }
 
-  return scrapedProfile
+  return scrapedProfile.data
 });

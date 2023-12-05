@@ -1,9 +1,10 @@
-import { scrapSchoolGrade } from "~/core/scrapers/school-grade.scraper";
+import { AccessDeniedError } from "~/errors/exceptions/siga.error";
+import { sigaSchoolGrade } from "~/utils/siga";
 
 export default defineEventHandler(async (event) => {
-  return await scrap({
-    route: "/aluno/historicograde.aspx",
-    scrapFn: scrapSchoolGrade,
-    token: event.context.token
-  })
+  const schoolGrade = await sigaSchoolGrade(event.context.user)
+
+  if (!schoolGrade.success) throw new AccessDeniedError()
+
+  return schoolGrade.data
 });

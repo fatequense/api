@@ -1,9 +1,10 @@
-import { scrapSchedule } from "~/core/scrapers/schedule.scraper";
+import { AccessDeniedError } from "~/errors/exceptions/siga.error";
+import { sigaSchedule } from "~/utils/siga";
 
 export default defineEventHandler(async (event) => {
-  return await scrap({
-    route: "/aluno/horario.aspx",
-    scrapFn: scrapSchedule,
-    token: event.context.token
-  })
+  const schedule = await sigaSchedule(event.context.user)
+
+  if (!schedule.success) throw new AccessDeniedError()
+
+  return schedule.data
 });

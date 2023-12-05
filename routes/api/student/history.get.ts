@@ -1,9 +1,10 @@
-import { scrapHistory } from "~/core/scrapers/history.scraper";
+import { AccessDeniedError } from "~/errors/exceptions/siga.error";
+import { sigaHistory } from "~/utils/siga";
 
 export default defineEventHandler(async (event) => {
-  return await scrap({
-    route: "/aluno/historicocompleto.aspx",
-    scrapFn: scrapHistory,
-    token: event.context.token
-  });
+  const history = await sigaHistory(event.context.user)
+
+  if (!history.success) throw new AccessDeniedError()
+
+  return history.data
 });

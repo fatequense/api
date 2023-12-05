@@ -18,11 +18,11 @@ async function getLogoutGXStateEvent(token: string) {
 }
 
 export default defineEventHandler(async event => {
-	const logoutEvent = await getLogoutGXStateEvent(event.context.token)
+	const logoutEvent = await getLogoutGXStateEvent(event.context.user.session)
 
 	const { res } = await api.post("/aluno/home.aspx", {
 		headers: {
-			cookie: `${COOKIES.AUTH}=${decrypt(event.context.token)}`
+			cookie: `${COOKIES.AUTH}=${decrypt(event.context.user.session)}`
 		},
 		data: {
 			GXState: logoutEvent

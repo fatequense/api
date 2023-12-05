@@ -1,9 +1,11 @@
 import { scrapDisciplines } from "~/core/scrapers/disciplines.scraper";
+import { AccessDeniedError } from "~/errors/exceptions/siga.error";
+import { sigaDisciplines } from "~/utils/siga";
 
 export default defineEventHandler(async (event) => {
-  return await scrap({
-    route: "/aluno/notasparciais.aspx",
-    scrapFn: scrapDisciplines,
-    token: event.context.token
-  })
+  const disciplines = await sigaDisciplines(event.context.user)
+
+  if (!disciplines.success) throw new AccessDeniedError()
+
+  return disciplines.data
 });
