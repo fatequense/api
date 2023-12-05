@@ -14,7 +14,7 @@ export default defineEventHandler((event) => {
   try {
     const payload = jwtVerify(token);
 
-    event.context.token = payload.session;
+    event.context.user = payload;
   } catch {
     throw new UnauthorizedError();
   }
